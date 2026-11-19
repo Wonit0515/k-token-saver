@@ -5,7 +5,8 @@
 
 [![Platform](https://img.shields.io/badge/Platform-Chrome%20MV3-4f46e5?style=flat-square)](#)
 [![Privacy](https://img.shields.io/badge/Server%20Transmission-0%20Bytes%20(100%25%20Local)-10b981?style=flat-square)](./PRIVACY.md)
-[![Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-ea4aaa?style=flat-square&logo=githubsponsors)](https://github.com/sponsors/wonit0515)
+[![Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-ea4aaa?style=flat-square&logo=githubsponsors)](https://github.com/sponsors/Wonit0515)
+[![Ko-fi](https://img.shields.io/badge/Support-Ko--fi-ff5e5b?style=flat-square&logo=ko-fi&logoColor=white)](https://ko-fi.com/wonit0515)
 
 ---
 
@@ -53,9 +54,10 @@
 K-Token Saver의 핵심 `초압축` 기능과 로컬 프라이버시 도구는 영구 무료로 제공됩니다.  
 도구가 실무와 토큰 절약에 도움이 되셨다면 아래 채널로 개발을 응원해 주세요!
 
-- 💖 **GitHub Sponsors**: https://github.com/sponsors/wonit0515
-- ☕ **Ko-fi**: *(준비 중 — 개설 후 업데이트 예정)*
+- 💖 **GitHub Sponsors**: https://github.com/sponsors/Wonit0515
+- ☕ **Ko-fi**: https://ko-fi.com/wonit0515
 
 ---
 
 > **Notice**: 본 저장소는 **K-Token Saver**의 공식 소개·문서·개인정보처리방침·이슈 트래커 및 후원 안내용 공개 저장소입니다. 코어 엔진 및 회귀 검증 자산은 비공개로 관리됩니다.
+
