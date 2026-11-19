@@ -1,0 +1,23 @@
+# Strictly prevent proprietary code, build packages, keys, and local data from entering public showcase repo
+.env
+.env.*
+*.zip
+*.crx
+*.db
+*.sqlite
+*.key
+*.pem
+*.jwk
+*.py
+*.js
+extension/
+dist/
+Patch/
+History/
+test/
+tools/
+data/
+_legacy_archive/
+__pycache__/
+.DS_Store
+Thumbs.db
