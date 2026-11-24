@@ -15,3 +15,12 @@ labels: bug
 2. 기대한 결과:
 3. 실제 발생한 현상:
 
+---
+
+<sub>
+
+**English Guide**: Please share (1) Platform (`ChatGPT` / `Claude` / `Gemini` / `Popup`), Browser & Version, and Mode (`Free` / `Pro` / `Code` / `Math`), plus (2) Steps to reproduce (Sample input, Expected result, Actual issue). **Remove all secrets, emails, or PII before posting.**
+
+</sub>
+
+

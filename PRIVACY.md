@@ -1,6 +1,6 @@
 # 개인정보처리방침 (Privacy Policy) — K-Token Saver
 
-- **최종 수정일**: 2026-11-23
+- **최종 수정일**: 2026-11-24
 - **개발자 / 문의**: WonIT0515 (`wonit0515@gmail.com`)
 - **적용 대상**: Chrome 확장 프로그램 **K-Token Saver** (Manifest V3)
 
@@ -59,3 +59,21 @@
 ## 6. 문의처
 
 개인정보 보호 또는 보안 관련 문의는 GitHub Issues 또는 이메일(`wonit0515@gmail.com`)로 연락해 주세요.
+
+---
+
+### 🌐 Privacy Policy (English Summary)
+
+<sub>
+
+1. **Zero-Server · Zero-Exfiltration (Default 100% Local)**: By default, K-Token Saver does **not** collect, transmit, sell, or share user prompts, conversations, sensitive data, or personal identifiers with any developer server or third party. All prompt optimization, sentence polishing, spacing restoration, local DLP masking, and offline license verification run strictly client-side, with zero external analytics, ad SDKs, tracking pixels, or remote JS loading.
+2. **Browser Local Storage (`chrome.storage`)**: `chrome.storage.local` stores only non-prompt operational settings and local counters (token/KRW savings stats, custom exclusion rules, personal glossary/suffix rules, anonymized integer pattern counters, widget state/12h sponsor dismiss timestamp, offline license token & DLP domains, optional BYOK settings, and Pro local conversion preview up to 80 items). Pro users who manually opt in use their own browser's `chrome.storage.sync` for custom exclusion rules.
+3. **Strictly Opt-In External Connections (Disabled by Default)**:
+   - **Optional AI Rewriter (Default: OFF)**: Makes external requests only if the user explicitly enables it and enters their own API key (Google Gemini or HTTPS OpenAI-compatible endpoint) or local Ollama (`127.0.0.1` / `localhost`) URL, with optional pre-send DLP masking.
+   - **Voluntary GitHub Issue Links**: Clicking `[GitHub 제안]` / `[최신]` / `[패턴 제보]` only opens an official GitHub web form upon explicit user click (0 background transmissions). `[패턴 제보]` replaces detected PII/secrets with anonymized placeholders (`{EMAIL}`, `{SECRET}`, etc.) and shows a preview before the user decides to open/submit on GitHub.
+4. **Minimal Permissions**: `storage` is used solely for the local data above; host permissions (`chatgpt.com`, `*.chatgpt.com`, `claude.ai`, `*.claude.ai`, `gemini.google.com`) are used solely to read/update the active prompt box locally when the user triggers optimization, polishing, or undo (`Alt+Shift+K` / `Alt+Shift+Z` / widget buttons).
+5. **Data Deletion**: Uninstalling K-Token Saver or clearing extension data in `chrome://extensions` immediately removes all locally stored settings, glossaries, API keys, and statistics.
+6. **Contact**: Privacy/security inquiries — GitHub Issues or `wonit0515@gmail.com` (`WonIT0515`).
+
+</sub>
+
