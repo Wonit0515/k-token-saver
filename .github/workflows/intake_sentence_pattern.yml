@@ -1,0 +1,142 @@
+name: Intake Anonymized Sentence Pattern Issue to Draft PR
+
+on:
+  issues:
+    types: [labeled]
+
+permissions: {}
+
+jobs:
+  intake:
+    if: github.event.label.name == 'pattern-intake' && (contains(github.event.issue.labels.*.name, 'sentence-pattern') || startsWith(github.event.issue.title, '[Pattern]'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse & validate anonymized skeleton into dictionary/pattern_queue.json
+        id: parse
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          python3 - <<'PY'
+          import datetime, hashlib, json, os, re
+
+          body = os.environ.get("ISSUE_BODY", "") or ""
+          issue_num = int(os.environ.get("ISSUE_NUMBER", "0") or 0)
+
+          def extract_section(text: str, header_kw: str) -> str:
+              lines = text.splitlines()
+              capture = False
+              buf = []
+              for ln in lines:
+                  if re.match(r"^###\s+", ln):
+                      if capture:
+                          break
+                      if header_kw in ln:
+                          capture = True
+                      continue
+                  if capture:
+                      buf.append(ln)
+              return "\n".join(buf).strip()
+
+          pii_pat = re.compile(
+              r"https?://|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}|"
+              r"(?<![0-9-])01[016789]-?\d{3,4}-?\d{4}(?![0-9-])|"
+              r"(?<![0-9-])\d{6}-?[1-4]\d{6}(?![0-9-])|"
+              r"(?<![0-9-])\d{2,4}-\d{2,6}-\d{2,6}(?:-\d{1,4})?(?![0-9-])|"
+              r"\b(?:sk-(?:proj-|ant-|live-|test-)?[A-Za-z0-9_-]{8,}|AIza[0-9A-Za-z_-]{12,}|gh[pous]_[A-Za-z0-9]{12,}|(?:AKIA|ASIA)[0-9A-Z]{16}|xox[bap]-[A-Za-z0-9-]+|eyJ[A-Za-z0-9_-]{8,}\.)|"
+              r"\bBearer\s+[A-Za-z0-9._-]{8,}|"
+              r"(?<![A-Za-z0-9가-힣])(?:[A-Za-z]:\\[^\s]+|/[A-Za-z0-9_.-]+/[A-Za-z0-9_.\-/]+)|"
+              r"\d{4,}|"
+              r"(?<![가-힣])[김이박최정강조윤장임한오서신권황안송전홍유고문양손배백허남심노하곽성차주우구라민진지엄채원천방공현함변염여추도소석선설마길연위표명기반왕금옥육인맹제모탁국어은편](?!(?:청자|용자|행자|원자)(?:\s*님)?(?![가-힣]))[가-힣]{2}\s*(?:대리|과장|차장|부장|팀장|실장|본부장|이사|상무|전무|대표|매니저|사원|주임|님)(?:님)?(?=$|[\s,.?!:;]|(?:께서|에게|한테|께|은|는|이|가|을|를|의|와|과|랑|이랑|도|만|부터|까지))|"
+              r"<script|</|`",
+              re.I,
+          )
+
+          def clean_field(raw: str, max_len: int) -> str:
+              s = re.sub(r"\s+", " ", raw or "").strip()
+              if s in ("_No response_", "(없음)"):
+                  return ""
+              return s[:max_len]
+
+          cat = clean_field(extract_section(body, "문제 유형"), 60)
+          skel = clean_field(extract_section(body, "익명화된 문장 스켈레톤"), 180)
+          note = clean_field(extract_section(body, "기대했던 결과"), 160)
+
+          with open("dictionary/pattern_queue.json", encoding="utf-8") as f:
+              queue = json.load(f)
+
+          patterns = queue.setdefault("patterns", [])
+          existing_skels = {p.get("skeleton") for p in patterns if isinstance(p, dict)}
+
+          valid = (
+              4 <= len(skel) <= 180
+              and len(cat) >= 2
+              and len(re.findall(r"[가-힣]", skel)) >= 2
+              and not pii_pat.search(skel)
+              and not pii_pat.search(cat)
+              and (not note or not pii_pat.search(note))
+          )
+
+          changed = 0
+          status_reason = "rejected_pii_or_format"
+          if valid:
+              if skel in existing_skels:
+                  status_reason = "duplicate"
+              elif len(patterns) >= 200:
+                  status_reason = "queue_full"
+              else:
+                  pat_id = hashlib.sha256(skel.encode("utf-8")).hexdigest()[:12]
+                  patterns.append({
+                      "id": f"pat_{pat_id}",
+                      "category": cat,
+                      "skeleton": skel,
+                      "expected_behavior": note,
+                      "source_issue": issue_num,
+                      "added_at": datetime.date.today().strftime("%Y-%m-%d"),
+                  })
+                  queue["version"] = datetime.date.today().strftime("%Y.%m.%d")
+                  with open("dictionary/pattern_queue.json", "w", encoding="utf-8", newline="\n") as f:
+                      json.dump(queue, f, ensure_ascii=False, indent=2)
+                      f.write("\n")
+                  changed = 1
+                  status_reason = "accepted"
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as gh_out:
+              gh_out.write(f"changed={changed}\n")
+              gh_out.write(f"reason={status_reason}\n")
+              gh_out.write(f"branch=auto-pattern/issue-{issue_num}\n")
+          PY
+
+      - name: Create or update Draft PR when valid Zero-PII skeleton added
+        if: steps.parse.outputs.changed != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ steps.parse.outputs.branch }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH_NAME"
+          git add dictionary/pattern_queue.json
+          git commit -m "chore(pattern): intake anonymized skeleton from #${ISSUE_NUMBER}"
+          git push --force-with-lease -u origin "$BRANCH_NAME"
+          EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number // empty')
+          if [ -z "$EXISTING_PR" ]; then
+            gh pr create --draft --base main --head "$BRANCH_NAME" \
+              --title "[Auto-Pattern] Issue #${ISSUE_NUMBER} 익명 패턴 큐 반영 제안" \
+              --body "Zero-PII 정규식 재검증을 통과한 익명 문장 스켈레톤 1건을 \`dictionary/pattern_queue.json\`에 반영합니다. Ref #${ISSUE_NUMBER}"
+          fi
+
+      - name: Comment safely when skeleton was skipped
+        if: steps.parse.outputs.changed == '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REASON: ${{ steps.parse.outputs.reason }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "자동 Zero-PII/규격 검증 결과 \`dictionary/pattern_queue.json\` 반영이 보류되었습니다 (상태: \`${REASON}\`). 원문 민감정보·숫자·URL·실명이 남아 있지 않은지 확인해 주세요."

@@ -42,10 +42,12 @@
 
 ---
 
-## 💬 버그 제보 및 기능 제안
+## 💬 버그 제보 · 기능 제안 · 커뮤니티 사전 참여
 
-- 🐛 [버그 제보하기 (Bug Report)](https://github.com/wonit0515/k-token-saver/issues/new?template=bug_report.md)
-- 💡 [기능 제안하기 (Feature Request)](https://github.com/wonit0515/k-token-saver/issues/new?template=feature_request.md)
+- 🐛 [버그 제보하기 (Bug Report)](https://github.com/Wonit0515/k-token-saver/issues/new?template=bug_report.md)
+- 💡 [기능 제안하기 (Feature Request)](https://github.com/Wonit0515/k-token-saver/issues/new?template=feature_request.md)
+- 📚 [신조어·오타 교정 사전 제안](https://github.com/Wonit0515/k-token-saver/issues/new?template=vocab_suggestion.yml) · [📄 `dictionary/vocab_pack.json` (CC0-1.0)](./dictionary/vocab_pack.json)
+- 🧪 [익명 문장 패턴 제보 (Zero-PII)](https://github.com/Wonit0515/k-token-saver/issues/new?template=sentence_pattern.yml) · [📄 `dictionary/pattern_queue.json` (CC0-1.0)](./dictionary/pattern_queue.json)
 
 ---
 
@@ -59,5 +61,5 @@ K-Token Saver의 핵심 `초압축` 기능과 로컬 프라이버시 도구는 �
 
 ---
 
-> **Notice**: 본 저장소는 **K-Token Saver**의 공식 소개·문서·개인정보처리방침·이슈 트래커 및 후원 안내용 공개 저장소입니다. 코어 엔진 및 회귀 검증 자산은 비공개로 관리됩니다.
+> **Notice**: 본 저장소는 **K-Token Saver**의 공식 소개·문서·개인정보처리방침·이슈 트래커·커뮤니티 정적 사전 데이터(`CC0-1.0`) 및 후원 안내용 공개 저장소입니다. 코어 엔진 및 회귀 검증 자산은 비공개로 관리됩니다.
 

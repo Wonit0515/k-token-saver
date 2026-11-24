@@ -1,0 +1,60 @@
+name: "신조어·교정 사전 제안 (익명 단일 단어)"
+description: "개인 프롬프트·개인정보 없이 K-Token Saver 커뮤니티 사전에 추가할 단일 단어/구어체/오타 교정 쌍/접미 패턴을 제안합니다."
+title: "[Vocab] 신조어·전문용어·교정 사전 제안"
+labels: ["vocab-suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### ⚠️ 공개(Public) 저장소 · 개인정보 및 프롬프트 유출 방지 안내
+        - **본 저장소는 전 세계 누구나 열람 가능한 공개(Public) 저장소입니다.** 제출한 내용은 외부 검색엔진 및 Git 이력에 남습니다.
+        - **실제 대화 문장 전체, 실명, 회사/프로젝트명, 계정/이메일, API 키, 경로, 계좌번호를 절대 입력하지 마세요.**
+        - 단일 용어(`2~24자`), 구어체/줄임말, 오타 교정 쌍(`원본 -> 교정`), 익명 접미 패턴(`{STEM}하셈 -> {STEM}하세요`)만 제안해 주세요.
+  - type: textarea
+    id: loanwords
+    attributes:
+      label: "신조어 / 전문용어 (외래어 오인식 방지 화이트리스트)"
+      description: "줄바꿈으로 구분해 입력해 주세요. (예: 클로드코드, 랭그래프)"
+      placeholder: |
+        클로드코드
+        수파베이스
+    validations:
+      required: false
+  - type: textarea
+    id: slang_terms
+    attributes:
+      label: "신조어 / 구어체·줄임말 (감지 사전)"
+      description: "줄바꿈으로 구분해 입력해 주세요. (예: 바이브코딩, 점메추)"
+      placeholder: |
+        바이브코딩
+        점메추
+    validations:
+      required: false
+  - type: textarea
+    id: replacements
+    attributes:
+      label: "오타 / 표현 교정 쌍 (`원본 -> 교정`)"
+      description: "한 줄에 하나씩 `원본 -> 교정` 형식으로 입력해 주세요."
+      placeholder: |
+        되여 -> 돼요
+        알려주셈 -> 알려 주세요
+    validations:
+      required: false
+  - type: textarea
+    id: suffix_patterns
+    attributes:
+      label: "학습 접미 패턴 (선택 · `{STEM}` 슬롯만)"
+      description: "원문 단어 없이 접미사 변환 규칙만 한 줄씩 입력해 주세요."
+      placeholder: |
+        {STEM}주셈 -> {STEM} 주세요
+    validations:
+      required: false
+  - type: checkboxes
+    id: privacy_check
+    attributes:
+      label: "개인정보·기밀 미포함 자가 점검"
+      options:
+        - label: "본 제안에는 개인정보(PII), 사내 기밀, API 키 및 실제 프롬프트 원문이 전혀 포함되어 있지 않습니다."
+          required: true
+        - label: "등록된 항목이 K-Token Saver 오픈소스(MIT) 정적 사전에 포함되는 것에 동의합니다."
+          required: true

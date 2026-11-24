@@ -1,4 +1,4 @@
-# Strictly prevent proprietary code, build packages, keys, and local data from entering public showcase repo
+# Strictly prevent proprietary code, build packages, keys, internal models, and local data from entering public showcase repo
 .env
 .env.*
 *.zip
@@ -10,6 +10,12 @@
 *.jwk
 *.py
 *.js
+*.json
+!dictionary/vocab_pack.json
+!dictionary/pattern_queue.json
+*secret*
+*private*
+*token*
 extension/
 dist/
 Patch/

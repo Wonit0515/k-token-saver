@@ -1,0 +1,165 @@
+name: Intake Vocab Suggestion Issue to Draft PR
+
+on:
+  issues:
+    types: [labeled]
+
+permissions: {}
+
+jobs:
+  intake:
+    if: github.event.label.name == 'vocab-intake' && (contains(github.event.issue.labels.*.name, 'vocab-suggestion') || startsWith(github.event.issue.title, '[Vocab]'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse & validate issue payload into vocab_pack.json
+        id: parse
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          python3 - <<'PY'
+          import datetime, json, os, re
+
+          body = os.environ.get("ISSUE_BODY", "") or ""
+          issue_num = os.environ.get("ISSUE_NUMBER", "0")
+
+          def extract_section(text: str, header_kw: str) -> str:
+              lines = text.splitlines()
+              capture = False
+              buf = []
+              for ln in lines:
+                  if re.match(r"^###\s+", ln):
+                      if capture:
+                          break
+                      if header_kw in ln:
+                          capture = True
+                      continue
+                  if capture:
+                      buf.append(ln)
+              return "\n".join(buf).strip()
+
+          pii_pat = re.compile(
+              r"https?://|@|\d{4,}|(?:sk-|AIza|gh[pous]_|AKIA|ASIA|xox[bap]-|Bearer\s+|eyJ[A-Za-z0-9_-]{8,}\.)|[A-Za-z]:\\|/\S+/|\d{2,4}-\d{2,6}-\d{2,6}",
+              re.I,
+          )
+
+          def valid_tok(s: str, allow_space: bool = False) -> bool:
+              if not s or len(s) < 2 or len(s) > 24:
+                  return False
+              if not allow_space and " " in s:
+                  return False
+              if pii_pat.search(s):
+                  return False
+              return bool(re.match(r"^[가-힣A-Za-z0-9._\-\s]+$", s))
+
+          def split_items(raw: str):
+              out = []
+              for ln in raw.splitlines():
+                  s = re.sub(r"^[-*]\s*", "", ln).strip()
+                  if not s or s == "_No response_" or s == "(없음)":
+                      continue
+                  for part in s.split(","):
+                      tok = part.strip()
+                      if tok and tok != "_No response_":
+                          out.append(tok)
+              return out
+
+          with open("dictionary/vocab_pack.json", encoding="utf-8") as f:
+              pack = json.load(f)
+
+          changed = 0
+          rejected_cnt = 0
+
+          loan_raw = extract_section(body, "신조어 / 전문용어")
+          for item in split_items(loan_raw)[:30]:
+              if valid_tok(item, allow_space=False):
+                  if item not in pack["known_loanwords"] and len(pack["known_loanwords"]) < 500:
+                      pack["known_loanwords"].append(item)
+                      changed += 1
+              else:
+                  rejected_cnt += 1
+
+          slang_raw = extract_section(body, "구어체")
+          for item in split_items(slang_raw)[:30]:
+              if valid_tok(item, allow_space=True):
+                  if item not in pack["colloquial_slang"] and len(pack["colloquial_slang"]) < 300:
+                      pack["colloquial_slang"].append(item)
+                      changed += 1
+              else:
+                  rejected_cnt += 1
+
+          repl_raw = extract_section(body, "교정 쌍")
+          for ln in repl_raw.splitlines()[:30]:
+              clean = re.sub(r"^[-*]\s*", "", ln).strip()
+              if not clean or clean == "_No response_" or "->" not in clean:
+                  continue
+              k, v = [p.strip() for p in clean.split("->", 1)]
+              if valid_tok(k, allow_space=True) and valid_tok(v, allow_space=True) and k != v:
+                  if k not in pack["safe_replacements"] and len(pack["safe_replacements"]) < 300:
+                      pack["safe_replacements"][k] = v
+                      changed += 1
+              else:
+                  rejected_cnt += 1
+
+          sfx_raw = extract_section(body, "접미 패턴")
+          existing_sfx = {(r.get("fromSuffix"), r.get("toSuffix")) for r in pack.get("suffix_patterns", []) if isinstance(r, dict)}
+          for ln in sfx_raw.splitlines()[:20]:
+              clean = re.sub(r"^[-*]\s*", "", ln).strip()
+              m = re.match(r"^\{STEM\}([가-힣]{1,6})\s*->\s*\{STEM\}([가-힣\s.?!]{1,10})$", clean)
+              if not m:
+                  if clean and clean != "_No response_":
+                      rejected_cnt += 1
+                  continue
+              fs, ts = m.group(1), m.group(2)
+              if fs != ts.strip() and (fs, ts) not in existing_sfx and len(pack["suffix_patterns"]) < 80:
+                  pack["suffix_patterns"].append({"fromSuffix": fs, "toSuffix": ts})
+                  existing_sfx.add((fs, ts))
+                  changed += 1
+
+          if changed > 0:
+              pack["version"] = datetime.date.today().strftime("%Y.%m.%d")
+              with open("dictionary/vocab_pack.json", "w", encoding="utf-8", newline="\n") as f:
+                  json.dump(pack, f, ensure_ascii=False, indent=2)
+                  f.write("\n")
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as gh_out:
+              gh_out.write(f"changed={changed}\n")
+              gh_out.write(f"rejected={rejected_cnt}\n")
+              gh_out.write(f"branch=auto-vocab/issue-{issue_num}\n")
+          PY
+
+      - name: Create or update Draft PR when valid non-PII items exist
+        if: steps.parse.outputs.changed != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH_NAME: ${{ steps.parse.outputs.branch }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          CHANGED_CNT: ${{ steps.parse.outputs.changed }}
+          REJECTED_CNT: ${{ steps.parse.outputs.rejected }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH_NAME"
+          git add dictionary/vocab_pack.json
+          git commit -m "chore(vocab): intake ${CHANGED_CNT} sanitized items from #${ISSUE_NUMBER}"
+          git push --force-with-lease -u origin "$BRANCH_NAME"
+          EXISTING_PR=$(gh pr list --head "$BRANCH_NAME" --state open --json number --jq '.[0].number // empty')
+          if [ -z "$EXISTING_PR" ]; then
+            gh pr create --draft --base main --head "$BRANCH_NAME" \
+              --title "[Auto-Vocab] Issue #${ISSUE_NUMBER} 사전 반영 제안 (${CHANGED_CNT}건)" \
+              --body "자동 PII/형식 검증을 통과한 ${CHANGED_CNT}건의 커뮤니티 사전 제안을 반영합니다 (제외 항목: ${REJECTED_CNT}건). Ref #${ISSUE_NUMBER}"
+          fi
+
+      - name: Comment safely when no eligible entries were found
+        if: steps.parse.outputs.changed == '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REJECTED_CNT: ${{ steps.parse.outputs.rejected }}
+        run: |
+          gh issue comment "$ISSUE_NUMBER" --body "자동 검증 결과 신규로 반영 가능한 비식별 단일 항목이 없어 Draft PR을 생성하지 않았습니다 (규격/PII 필터 제외 또는 중복 ${REJECTED_CNT}건)."

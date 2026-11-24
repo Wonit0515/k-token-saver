@@ -1,0 +1,99 @@
+name: Validate Community Vocab & Pattern Packs
+
+on:
+  pull_request:
+    paths:
+      - "dictionary/vocab_pack.json"
+      - "dictionary/pattern_queue.json"
+  push:
+    branches:
+      - main
+    paths:
+      - "dictionary/vocab_pack.json"
+      - "dictionary/pattern_queue.json"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate schema & zero-PII rules
+        run: |
+          python3 - <<'PY'
+          import json, re
+
+          with open("dictionary/vocab_pack.json", encoding="utf-8") as f:
+              data = json.load(f)
+
+          assert isinstance(data, dict), "Root must be a JSON object"
+          assert isinstance(data.get("version"), str) and data["version"].strip(), "version required"
+          for key in ("known_loanwords", "colloquial_slang", "locked_compounds", "suffix_patterns"):
+              assert isinstance(data.get(key), list), f"{key} must be list"
+          assert isinstance(data.get("safe_replacements"), dict), "safe_replacements must be dict"
+
+          pii_pat = re.compile(
+              r"https?://|@|\d{4,}|(?:sk-|AIza|gh[pous]_|AKIA|ASIA|xox[bap]-|Bearer\s+|eyJ[A-Za-z0-9_-]{8,}\.)|[A-Za-z]:\\|/\S+/|\d{2,4}-\d{2,6}-\d{2,6}",
+              re.I,
+          )
+
+          def valid_token(s, no_space=True):
+              if not isinstance(s, str):
+                  return False
+              s = s.strip()
+              if len(s) < 2 or len(s) > 24:
+                  return False
+              if no_space and " " in s:
+                  return False
+              if pii_pat.search(s):
+                  return False
+              return bool(re.match(r"^[가-힣A-Za-z0-9._\-\s]+$", s))
+
+          for term in data["known_loanwords"]:
+              assert valid_token(term, no_space=True), f"Invalid known_loanwords item: {term}"
+          for slang in data["colloquial_slang"]:
+              assert valid_token(slang, no_space=False), f"Invalid colloquial_slang item: {slang}"
+          for k, v in data["safe_replacements"].items():
+              assert valid_token(k, no_space=False) and valid_token(v, no_space=False) and k != v, f"Invalid pair: {k}->{v}"
+          for r in data["suffix_patterns"]:
+              assert isinstance(r, dict), f"Invalid suffix rule: {r}"
+              fs = str(r.get("fromSuffix", "")).strip()
+              ts = str(r.get("toSuffix", ""))
+              assert re.match(r"^[가-힣]{1,6}$", fs) and re.match(r"^[가-힣\s.?!]{1,10}$", ts) and fs != ts.strip(), f"Unsafe suffix rule: {r}"
+          for lk in data["locked_compounds"]:
+              assert isinstance(lk, str) and re.match(r"^[가-힣]{3,12}$", lk.strip()), f"Invalid locked_compounds item: {lk}"
+
+          with open("dictionary/pattern_queue.json", encoding="utf-8") as pf:
+              qdata = json.load(pf)
+
+          assert isinstance(qdata, dict) and qdata.get("schema") == "ktoken_pattern_queue_v1", "Invalid pattern_queue schema"
+          assert isinstance(qdata.get("version"), str) and qdata["version"].strip(), "pattern_queue version required"
+          pats = qdata.get("patterns")
+          assert isinstance(pats, list) and len(pats) <= 200, "patterns must be list (<= 200)"
+          pat_pii = re.compile(
+              r"https?://|[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}|"
+              r"(?<![0-9-])01[016789]-?\d{3,4}-?\d{4}(?![0-9-])|"
+              r"(?<![0-9-])\d{6}-?[1-4]\d{6}(?![0-9-])|"
+              r"(?<![0-9-])\d{2,4}-\d{2,6}-\d{2,6}(?:-\d{1,4})?(?![0-9-])|"
+              r"\b(?:sk-(?:proj-|ant-|live-|test-)?[A-Za-z0-9_-]{8,}|AIza[0-9A-Za-z_-]{12,}|gh[pous]_[A-Za-z0-9]{12,}|(?:AKIA|ASIA)[0-9A-Z]{16}|xox[bap]-[A-Za-z0-9-]+|eyJ[A-Za-z0-9_-]{8,}\.)|"
+              r"\bBearer\s+[A-Za-z0-9._-]{8,}|"
+              r"(?<![A-Za-z0-9가-힣])(?:[A-Za-z]:\\[^\s]+|/[A-Za-z0-9_.-]+/[A-Za-z0-9_.\-/]+)|"
+              r"\d{4,}|<script|</|`",
+              re.I,
+          )
+          for p in pats:
+              assert isinstance(p, dict), f"Invalid pattern entry: {p}"
+              skel = str(p.get("skeleton", "")).strip()
+              cat = str(p.get("category", "")).strip()
+              note = str(p.get("expected_behavior", "")).strip()
+              assert 4 <= len(skel) <= 180 and len(cat) >= 2 and len(re.findall(r"[가-힣]", skel)) >= 2, f"Invalid skeleton bounds: {p}"
+              assert not pat_pii.search(skel) and not pat_pii.search(cat) and not pat_pii.search(note), f"PII leak in pattern_queue: {p}"
+
+          print(
+              f"OK vocab v{data['version']} (loan={len(data['known_loanwords'])}, slang={len(data['colloquial_slang'])}, "
+              f"repls={len(data['safe_replacements'])}, suffix={len(data['suffix_patterns'])}, locks={len(data['locked_compounds'])}) | "
+              f"pattern_queue v{qdata['version']} (patterns={len(pats)})"
+          )
+          PY

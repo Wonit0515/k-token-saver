@@ -1,47 +1,61 @@
 # 개인정보처리방침 (Privacy Policy) — K-Token Saver
 
-- **최종 수정일**: 2026-11-19
-- **개발자 / 문의**: WonIT0515 (`john316foryou@gmail.com`)
+- **최종 수정일**: 2026-11-23
+- **개발자 / 문의**: WonIT0515 (`wonit0515@gmail.com`)
 - **적용 대상**: Chrome 확장 프로그램 **K-Token Saver** (Manifest V3)
 
 ---
 
-## 1. 핵심 원칙: Zero-Server · Zero-Exfiltration
+## 1. 핵심 원칙: Zero-Server · Zero-Exfiltration (기본 100% 로컬 처리)
 
-**K-Token Saver**는 사용자의 프롬프트, 대화 내용, 민감정보, 개인 식별 정보를 **어떠한 외부 서버로도 수집·전송·판매하지 않습니다.**
+**K-Token Saver**는 기본 실행 상태에서 사용자의 프롬프트, 대화 내용, 민감정보, 개인 식별 정보를 **어떠한 개발자 서버나 외부 제3자 서버로도 수집·전송·판매하지 않습니다.**
 
-- 모든 한국어 프롬프트 분석, 배제 조건 분리, 코드블록 보존, 로컬 DLP 마스킹, 오프라인 라이선스(`KTK1`) 서명 검증은 **사용자 브라우저 내부(Client-Side)** 에서만 실행됩니다.
-- 외부 분석 도구(Google Analytics 등), 원격 광고 SDK(Google AdSense 등), 트래킹 픽셀을 일절 탑재하지 않습니다.
+- 모든 한국어 프롬프트 분석·압축, 배제 조건 분리, 코드블록 보존, 무료 문장 다듬기·로컬 띄어쓰기 복원, 로컬 DLP 마스킹, 오프라인 라이선스 서명 검증은 **사용자 브라우저 내부(Client-Side)** 에서만 실행됩니다.
+- 외부 분석 도구(Google Analytics 등), 원격 광고 SDK(Google AdSense 등), 트래킹 픽셀, 원격 JavaScript 로딩을 일절 탑재하지 않습니다.
 
 ---
 
 ## 2. 브라우저 로컬 저장소(`chrome.storage`) 사용 항목
 
-확장 프로그램의 정상 동작을 위해 아래 설정과 통계만 사용자의 Chrome 로컬 저장소(`chrome.storage.local`)에 저장됩니다.
+확장 프로그램의 정상 동작과 개인화 편의를 위해 아래 설정과 통계만 사용자의 Chrome 로컬 저장소(`chrome.storage.local`)에 저장되며, 원문 프롬프트는 수집·전송되지 않습니다.
 
-| 저장 항목 | 용도 | 외부 전송 여부 |
+| 저장 영역 | 용도 | 외부 전송 여부 |
 | :--- | :--- | :---: |
-| 누적 절감 토큰·환산액 (`totalSavedTokens`, `totalSavedKrw`, `kTokenMonthlyFinOps`) | 팝업 대시보드 FinOps 절감 통계 표시 | ❌ 없음 |
-| 로컬 상시 배제 규칙 (`kTokenCustomExclusions`) | 사용자가 직접 입력한 상시 제외 키워드 유지 | ❌ 없음 *(Pro 사용자가 다기기 동기화 옵션을 직접 켠 경우에만 Chrome 계정 `storage.sync` 활용)* |
-| 제휴 배너 숨김·순환 상태 (`kTokenSponsorDismissedAt`, `kTokenSponsorRotationStep`) | 무료 버전 12시간 숨김 및 팁 순환 상태 유지 | ❌ 없음 |
-| 오프라인 라이선스 토큰 및 Team DLP 설정 (`kTokenLicenseToken`, `kTokenDlpEnabled`, `kTokenDlpDomains`) | Pro/Team 기능 로컬 인증 및 전송 전 민감정보 마스킹 | ❌ 없음 |
-| 최근 변환 이력 (`kTokenTransformHistory`, Pro 전용 최대 80건) | 팝업 내 최근 변환 이력 미리보기 및 사용자 로컬 CSV/JSON 내보내기 | ❌ 없음 |
+| 누적 절감 토큰·월간 절감 통계 | 팝업 대시보드 FinOps 절감 통계 표시 | ❌ 없음 |
+| 로컬 상시 배제 규칙 | 사용자가 직접 입력한 상시 제외 키워드 유지 | ❌ 없음 *(Pro 사용자가 다기기 동기화 옵션을 직접 켠 경우에만 본인 Chrome 계정 `storage.sync` 활용)* |
+| 개인 용어·교정 학습 사전 | 사용자가 직접 등록한 용어, 편집 학습 교정 쌍, 접미 패턴, 커뮤니티 사전 JSON 가져오기 내역 유지 | ❌ 없음 |
+| 로컬 패턴 개선 카운터 | 띄어쓰기 미분절·복구 실행 횟수 등 **숫자 카운터만** 집계(프롬프트 원문 저장 안 함) | ❌ 없음 |
+| 위젯 화면 상태·제휴 배너 숨김 | 플로팅 위젯 위치·미니 모드·무료 버전 12시간 배너 숨김 및 순환 상태 유지 | ❌ 없음 |
+| 오프라인 라이선스 및 Team DLP 설정 | Pro/Team 기능 로컬 인증, 전송 전 민감정보 마스킹 활성화 및 사용자 지정 도메인 유지 | ❌ 없음 |
+| 선택형 AI 정밀 다듬기 설정 *(기본 OFF)* | 사용자가 직접 입력한 공급자·모델·API 키 또는 로컬 Ollama 주소 보관 | ❌ 기본 없음 *(아래 3항 Opt-In 시에만 사용)* |
+| 최근 변환 이력 *(Pro 전용 최대 80건)* | 팝업 내 최근 변환 이력 미리보기 및 사용자 로컬 CSV/JSON 내보내기 | ❌ 없음 |
 
 ---
 
-## 3. 최소 권한 원칙 (Permissions)
+## 3. 선택형 외부 연결 (Strict Opt-In · 사용자 직접 동작 시에만 제한적 처리)
 
-- `storage`: 위 로컬 설정 및 통계 저장 용도로만 사용합니다.
-- 호스트 권한(`https://chatgpt.com/*`, `https://claude.ai/*`, `https://gemini.google.com/*`): 사용자가 해당 AI 웹 페이지에서 단축키(`Alt+Shift+K`) 또는 플로팅 버튼을 클릭했을 때 입력창 텍스트를 로컬에서 변환·복구(`Alt+Shift+Z`)하기 위해서만 사용합니다.
-
----
-
-## 4. 데이터 삭제 방법
-
-사용자는 Chrome 확장 프로그램 관리(`chrome://extensions`)에서 K-Token Saver를 제거하거나 브라우저 확장 데이터를 초기화함으로써 로컬에 저장된 모든 설정과 통계를 즉시 완전히 삭제할 수 있습니다.
+1. **선택형 `[AI 정밀 다듬기]` (기본값: OFF)**
+   - 사용자가 확장 팝업에서 기능을 **직접 활성화(ON)** 하고 본인 API 키(Google Gemini 또는 HTTPS OpenAI 호환 엔드포인트)나 로컬 Ollama(`http://127.0.0.1` / `localhost`) 주소를 입력한 경우에만 동작합니다.
+   - 전송 전 로컬 DLP 마스킹을 적용할 수 있으며, 사용자가 지정한 공급자(또는 Chrome 온디바이스 내장 AI) 외의 개발자 서버나 제3자에게 전달되지 않습니다.
+2. **자발적 GitHub 커뮤니티 제안·패턴 제보 링크**
+   - 사용자가 팝업의 `[GitHub 제안]`/`[최신]` 또는 다듬기 카드의 `[패턴 제보]`를 **직접 클릭해 GitHub Issue 페이지를 여는 경우**에 한해, 브라우저가 GitHub 공식 웹 양식을 엽니다(백그라운드 자동 전송 0건).
+   - `[패턴 제보]`는 이메일·전화번호·계좌번호·주민번호·API 키·URL·경로·인용문·큰 숫자를 비식별 토큰(`{EMAIL}`, `{SECRET}` 등)으로 치환해 **사전 미리보기**를 제공하며, GitHub 공개 저장소에 실제로 등록할 때는 GitHub의 공개 이슈 정책이 적용되므로 사용자가 직접 기밀·실명 여부를 최종 확인한 뒤 제출해야 합니다.
 
 ---
 
-## 5. 문의처
+## 4. 최소 권한 원칙 (Permissions)
 
-개인정보 보호 또는 보안 관련 문의는 GitHub Issues 또는 이메일(`john316foryou@gmail.com`)로 연락해 주세요.
+- `storage`: 위 로컬 설정·개인 사전·통계 저장 용도로만 사용합니다.
+- 호스트 권한(`chatgpt.com`, `*.chatgpt.com`, `claude.ai`, `*.claude.ai`, `gemini.google.com`): 사용자가 해당 AI 웹 페이지에서 단축키(`Alt+Shift+K`) 또는 플로팅 버튼을 클릭했을 때 입력창 텍스트를 로컬에서 다듬기·변환·복구(`Alt+Shift+Z`)하기 위해서만 사용합니다.
+
+---
+
+## 5. 데이터 삭제 방법
+
+사용자는 Chrome 확장 프로그램 관리(`chrome://extensions`)에서 K-Token Saver를 제거하거나 브라우저 확장 데이터를 초기화함으로써 로컬에 저장된 모든 설정·개인 사전·API 키·통계를 즉시 완전히 삭제할 수 있습니다.
+
+---
+
+## 6. 문의처
+
+개인정보 보호 또는 보안 관련 문의는 GitHub Issues 또는 이메일(`wonit0515@gmail.com`)로 연락해 주세요.
