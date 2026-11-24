@@ -17,10 +17,6 @@ labels: bug
 
 ---
 
-<sub>
-
-**English Guide**: Please share (1) Platform (`ChatGPT` / `Claude` / `Gemini` / `Popup`), Browser & Version, and Mode (`Free` / `Pro` / `Code` / `Math`), plus (2) Steps to reproduce (Sample input, Expected result, Actual issue). **Remove all secrets, emails, or PII before posting.**
-
-</sub>
+> **English Guide**: Please share (1) Platform (`ChatGPT` / `Claude` / `Gemini` / `Popup`), Browser & Version, and Mode (`Free` / `Pro` / `Code` / `Math`), plus (2) Steps to reproduce (Sample input, Expected result, Actual issue). **Remove all secrets, emails, or PII before posting.**
 
 

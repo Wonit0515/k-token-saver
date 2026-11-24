@@ -62,9 +62,8 @@
 
 ---
 
-### 🌐 Privacy Policy (English Summary)
-
-<sub>
+<details open>
+<summary>🌐 <b>Privacy Policy (English Summary)</b></summary>
 
 1. **Zero-Server · Zero-Exfiltration (Default 100% Local)**: By default, K-Token Saver does **not** collect, transmit, sell, or share user prompts, conversations, sensitive data, or personal identifiers with any developer server or third party. All prompt optimization, sentence polishing, spacing restoration, local DLP masking, and offline license verification run strictly client-side, with zero external analytics, ad SDKs, tracking pixels, or remote JS loading.
 2. **Browser Local Storage (`chrome.storage`)**: `chrome.storage.local` stores only non-prompt operational settings and local counters (token/KRW savings stats, custom exclusion rules, personal glossary/suffix rules, anonymized integer pattern counters, widget state/12h sponsor dismiss timestamp, offline license token & DLP domains, optional BYOK settings, and Pro local conversion preview up to 80 items). Pro users who manually opt in use their own browser's `chrome.storage.sync` for custom exclusion rules.
@@ -75,5 +74,5 @@
 5. **Data Deletion**: Uninstalling K-Token Saver or clearing extension data in `chrome://extensions` immediately removes all locally stored settings, glossaries, API keys, and statistics.
 6. **Contact**: Privacy/security inquiries — GitHub Issues or `wonit0515@gmail.com` (`WonIT0515`).
 
-</sub>
+</details>
 

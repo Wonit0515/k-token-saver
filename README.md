@@ -65,9 +65,8 @@ K-Token Saver의 핵심 `초압축` 기능과 로컬 프라이버시 도구는 �
 
 ---
 
-### 🌐 English Summary
-
-<sub>
+<details>
+<summary>🌐 <b>English Summary</b> (Click to expand)</summary>
 
 - **Overview**: **K-Token Saver** is a Chrome MV3 extension that refines, structures, and compresses Korean prompts **100% locally inside the browser (`<1ms`)** on ChatGPT (`chatgpt.com`), Claude (`claude.ai`), and Gemini (`gemini.google.com`) to prevent wasted LLM output tokens.
 - **Free (Forever Free · Unlimited `COMPACT`)**: Cleans colloquial filler, isolates exclusions (`STRICT_EXCLUSION`), preserves code blocks/error logs, and supports offline Korean sentence polishing, `Alt+Shift+K` (optimize), and `Alt+Shift+Z` (restore original).
@@ -75,6 +74,6 @@ K-Token Saver의 핵심 `초압축` 기능과 로컬 프라이버시 도구는 �
 - **Privacy & Minimal Permissions**: Requests only `storage` permission and the 3 supported AI host domains; **0 bytes sent to developer servers**, no external analytics, and no remote ad SDKs or remote scripts. See [PRIVACY.md](./PRIVACY.md).
 - **Community & Support**: Suggest vocabulary/patterns via GitHub Issues (`CC0-1.0` dictionaries in [`dictionary/`](./dictionary/)) or support development via [GitHub Sponsors](https://github.com/sponsors/Wonit0515) / [Ko-fi](https://ko-fi.com/wonit0515). This public repo hosts documentation, privacy policy, issue templates, and static community data only.
 
-</sub>
+</details>
 
 

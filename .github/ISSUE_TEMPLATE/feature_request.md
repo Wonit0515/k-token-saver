@@ -13,10 +13,6 @@ labels: enhancement
 
 ---
 
-<sub>
-
-**English Guide**: You may write in English or Korean—please describe (1) Background / pain point, (2) Requested feature or improvement, and (3) Example use case.
-
-</sub>
+> **English Guide**: You may write in English or Korean—please describe (1) Background / pain point, (2) Requested feature or improvement, and (3) Example use case.
 
 
