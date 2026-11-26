@@ -53,6 +53,8 @@
 - 📚 [신조어·오타 교정 사전 제안](https://github.com/Wonit0515/k-token-saver/issues/new?template=vocab_suggestion.yml) · [📄 `dictionary/vocab_pack.json` (CC0-1.0)](./dictionary/vocab_pack.json)
 - 🧪 [익명 문장 패턴 제보 (Zero-PII)](https://github.com/Wonit0515/k-token-saver/issues/new?template=sentence_pattern.yml) · [📄 `dictionary/pattern_queue.json` (CC0-1.0)](./dictionary/pattern_queue.json)
 
+> 💡 **무중단 최신 사전 적용**: [`vocab_pack.json` (Raw 다른 이름으로 저장)](https://raw.githubusercontent.com/Wonit0515/k-token-saver/main/dictionary/vocab_pack.json) 후 확장 팝업 `📚 내 용어·사전 학습 → 📥 JSON 불러오기`를 누르면 재설치 없이 최신 커뮤니티 사전을 즉시 병합할 수 있습니다.
+
 ---
 
 ## ☕ 개발 후원 (Support This Project)

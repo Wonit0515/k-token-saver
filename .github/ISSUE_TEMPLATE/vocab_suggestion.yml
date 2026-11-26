@@ -56,5 +56,5 @@ body:
       options:
         - label: "본 제안에는 개인정보(PII), 사내 기밀, API 키 및 실제 프롬프트 원문이 전혀 포함되어 있지 않습니다."
           required: true
-        - label: "등록된 항목이 K-Token Saver 오픈소스(MIT) 정적 사전에 포함되는 것에 동의합니다."
+        - label: "등록된 항목이 K-Token Saver 커뮤니티 공개(CC0-1.0) 정적 사전에 포함되는 것에 동의합니다."
           required: true
