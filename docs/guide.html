@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'self'; form-action 'none'">
   <title>K-Token Saver v3.6 기능별 사용자 설명서 (웹 안내)</title>
   <meta name="description" content="K-Token Saver의 8대 기능(무료 문장 다듬기, 초압축 변환, 원문 복구, 사전 학습, BYOK/Ollama, 로컬 DLP, 다기기 동기화, 익명 패턴 제보) 상세 사용 설명서와 단축키 안내입니다.">
   <link rel="canonical" href="https://wonit0515.github.io/k-token-saver/guide.html">
@@ -206,7 +208,7 @@
           <span class="badge">기능 3 · Free vs Pro</span>
           <h3>🗜️ 초압축 vs 👑 팀장지휘 · 💻 코드 · 📐 수식</h3>
           <div class="manual-q">Q. 각 모드는 무엇이 다른가요?</div>
-          <p class="manual-p"><b>🗜️ 초압축(Free 무제한)</b>은 태그 오버헤드를 최소화해 깔끔하게 과업·배제 조건만 압축합니다. <b>👑 팀장지휘 / 💻 코드 / 📐 수식(Pro)</b>은 질문 성격(장애 분석, 구현, 아키텍처, 비교, 수식·증명 등) 28종을 자동 판별해 전문 지휘 구조와 도메인별 심층 검증선(<code>PRO_VERIFY</code>), 직무 스키마 팩 5종(CISO·FinOps·Deal Desk·ITSM·DPA)을 자동 결합합니다.</p>
+          <p class="manual-p"><b>🗜️ 초압축(Free 무제한)</b>은 태그 오버헤드를 최소화해 깔끔하게 과업·배제 조건만 압축합니다. <b>👑 팀장지휘 / 💻 코드 / 📐 수식(Pro)</b>은 질문 성격(장애 분석, 구현, 아키텍처, 비교, 수식·증명 등) 28종을 자동 판별해 전문 지휘 구조와 질문유형별 심층 검증선, 직무 스키마 팩 5종(CISO·FinOps·Deal Desk·ITSM·DPA)을 자동 결합합니다.</p>
           <div class="manual-q">Q. 어떻게 사용하나요?</div>
           <p class="manual-p">위젯이나 팝업 상단 칩을 눌러 전환합니다. 무료 사용자는 <code>🗜️ 초압축</code>을 제한 없이 쓰며, 팝업 <b>오프라인 독립 변환기</b>에서도 다른 사이트(메일·메모장 등)에 붙여넣을 변환문을 미리 만들어 <code>📋 복사</code>할 수 있습니다.</p>
         </div>
@@ -303,3 +305,4 @@
   </div>
 </body>
 </html>
+

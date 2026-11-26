@@ -21,11 +21,11 @@
   모든 한국어 구문 분석·배제 조건 분리·코드블록 보호가 **사용자 브라우저 메모리 내부(`<1ms`)**에서만 동작합니다. 입력한 프롬프트나 사내 문서가 외부 백엔드 서버로 전송되지 않습니다.
 - **🗜️ Free (영구 무료 · 무제한 `초압축`)**
   - 불필요한 구어체·보조사·사족을 정리하고 핵심 과업과 배제 조건(`STRICT_EXCLUSION`)을 정돈합니다.
-  - ```` ```코드블록``` ```` 및 에러 로그 원형 100% 보존 (Tier 3 가드레일).
+  - ```` ```코드블록``` ```` 및 에러 로그 원형 100% 보존 (코드블록 무손실 격리).
   - 단축키 **`Alt+Shift+K`** 즉시 변환 / **`Alt+Shift+Z`** 원문 100% 복구.
   - 팝업 내 **오프라인 독립 변환기** 및 **내 로컬 상시 배제 규칙** 지원.
 - **👑 Pro / Team (합리적 월 구독 예정 · 오프라인 WebCrypto 키 인증)**
-  - **팀장지휘 28종 동적 라우팅** + **코드집중** + **수식계산** + 질문유형별 심층 검증선(`PRO_VERIFY`).
+  - **팀장지휘 28종 동적 라우팅** + **코드집중** + **수식계산** + 질문유형별 심층 검증선 자동 결합.
   - 직무 특화 스키마 팩 5종(CISO · FinOps · B2B Deal Desk · ITSM · Legal/DPA).
   - 월간 FinOps 절감 CSV/JSON 리포트 및 Team 전용 **전송 전 100% 로컬 DLP 마스킹**(API 키·JWT·PII·사내 도메인).
 
@@ -91,7 +91,7 @@ K-Token Saver의 핵심 `초압축` 기능과 로컬 프라이버시 도구는 �
 - **Overview**: **K-Token Saver** is a Chrome MV3 extension that refines, structures, and compresses Korean prompts **100% locally inside the browser (`<1ms`)** on ChatGPT (`chatgpt.com`), Claude (`claude.ai`), and Gemini (`gemini.google.com`) to prevent wasted LLM output tokens.
 - **Free (Forever Free · Unlimited `COMPACT`)**: Cleans colloquial filler, isolates exclusions (`STRICT_EXCLUSION`), preserves code blocks/error logs, and supports offline Korean sentence polishing, `Alt+Shift+K` (optimize), and `Alt+Shift+Z` (restore original).
 - **Domain Vocab Packs & Synergy Prompts**: Import domain JSON packs (`dev_cloud_pack.json`, `pm_report_pack.json`, `kr_typo_pack.json`) directly in the popup with zero reinstall, or copy 16 role-specific Custom Instruction profiles in [PROMPTS.md](./PROMPTS.md).
-- **Pro / Team & Enterprise**: Unlocks 28 dynamic directive templates, `PRO_VERIFY` checks, 5 domain schema packs, FinOps CSV/JSON exports, offline ECDSA P-256 licensing, and local pre-send DLP masking. See [ENTERPRISE_SECURITY.md](./ENTERPRISE_SECURITY.md).
+- **Pro / Team & Enterprise**: Unlocks 28 dynamic directive templates, domain-specific verification checks, 5 domain schema packs, FinOps CSV/JSON exports, offline ECDSA P-256 licensing, and local pre-send DLP masking. See [ENTERPRISE_SECURITY.md](./ENTERPRISE_SECURITY.md).
 - **Privacy & Minimal Permissions**: Requests only `storage` permission and the 3 supported AI host domains; **0 bytes sent to developer servers**, no external analytics, and no remote ad SDKs or remote scripts. See [PRIVACY.md](./PRIVACY.md).
 - **Community & Support**: Suggest vocabulary/patterns via GitHub Issues (`CC0-1.0` dictionaries in [`dictionary/`](./dictionary/)) or support development via [GitHub Sponsors](https://github.com/sponsors/Wonit0515) / [Ko-fi](https://ko-fi.com/wonit0515). This public repo hosts documentation, privacy policy, issue templates, and static community data only.
 
