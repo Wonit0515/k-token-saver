@@ -3,10 +3,13 @@
 > **100% 로컬 브라우저 구동(`<1ms`) 한국어 AI 프롬프트 최적화 · 토큰 절감 크롬 확장 프로그램**  
 > Supports **ChatGPT (`chatgpt.com`)**, **Claude (`claude.ai`)**, and **Gemini (`gemini.google.com`)**
 
-[![Platform](https://img.shields.io/badge/Platform-Chrome%20MV3-4f46e5?style=flat-square)](#)
+[![Chrome Web Store](https://img.shields.io/badge/Chrome%20Web%20Store-Free%20Install-2563eb?style=flat-square&logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/mdckdfnpajfofkfpaindnfpjjeepganh)
+[![Platform](https://img.shields.io/badge/Platform-Chrome%20MV3-4f46e5?style=flat-square)](https://chromewebstore.google.com/detail/mdckdfnpajfofkfpaindnfpjjeepganh)
 [![Privacy](https://img.shields.io/badge/Server%20Transmission-0%20Bytes%20(100%25%20Local)-10b981?style=flat-square)](./PRIVACY.md)
 [![Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-ea4aaa?style=flat-square&logo=githubsponsors)](https://github.com/sponsors/Wonit0515)
 [![Ko-fi](https://img.shields.io/badge/Support-Ko--fi-ff5e5b?style=flat-square&logo=ko-fi&logoColor=white)](https://ko-fi.com/wonit0515)
+
+👉 **[Chrome 웹 스토어에서 무료 설치하기 (Install on Chrome Web Store) ↗](https://chromewebstore.google.com/detail/mdckdfnpajfofkfpaindnfpjjeepganh)**
 
 ---
 
@@ -28,9 +31,10 @@
 
 ## 🚀 빠른 사용법
 
-1. ChatGPT, Claude, Gemini 입력창에 평소처럼 한국어로 질문합니다.
-2. **`Alt+Shift+K`** (또는 우측 하단 플로팅 버튼)를 누르면 `<1ms` 내 최적화된 프롬프트로 변환됩니다.
-3. 원문으로 되돌리고 싶을 때는 언제든 **`Alt+Shift+Z`** (`↩ 원문 복구`)를 누르세요.
+1. [Chrome 웹 스토어](https://chromewebstore.google.com/detail/mdckdfnpajfofkfpaindnfpjjeepganh)에서 **K-Token Saver**를 무료로 설치합니다.
+2. ChatGPT, Claude, Gemini 입력창에 평소처럼 한국어로 질문합니다.
+3. **`Alt+Shift+K`** (또는 우측 하단 플로팅 버튼)를 누르면 `<1ms` 내 최적화된 프롬프트로 변환됩니다.
+4. 원문으로 되돌리고 싶을 때는 언제든 **`Alt+Shift+Z`** (`↩ 원문 복구`)를 누르세요.
 
 ---
 
@@ -68,6 +72,7 @@ K-Token Saver의 핵심 `초압축` 기능과 로컬 프라이버시 도구는 �
 <details>
 <summary>🌐 <b>English Summary</b> (Click to expand)</summary>
 
+- **Install**: **[Install Free from Chrome Web Store ↗](https://chromewebstore.google.com/detail/mdckdfnpajfofkfpaindnfpjjeepganh)**
 - **Overview**: **K-Token Saver** is a Chrome MV3 extension that refines, structures, and compresses Korean prompts **100% locally inside the browser (`<1ms`)** on ChatGPT (`chatgpt.com`), Claude (`claude.ai`), and Gemini (`gemini.google.com`) to prevent wasted LLM output tokens.
 - **Free (Forever Free · Unlimited `COMPACT`)**: Cleans colloquial filler, isolates exclusions (`STRICT_EXCLUSION`), preserves code blocks/error logs, and supports offline Korean sentence polishing, `Alt+Shift+K` (optimize), and `Alt+Shift+Z` (restore original).
 - **Pro / Team (Offline WebCrypto License)**: Unlocks 28 dynamic directive templates, `PRO_VERIFY` checks, 5 domain schema packs, FinOps CSV/JSON exports, and local pre-send DLP masking (API keys, JWTs, PII, custom corporate domains).
