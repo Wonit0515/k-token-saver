@@ -5,12 +5,14 @@ on:
     paths:
       - "dictionary/vocab_pack.json"
       - "dictionary/pattern_queue.json"
+      - "dictionary/packs/*.json"
   push:
     branches:
       - main
     paths:
       - "dictionary/vocab_pack.json"
       - "dictionary/pattern_queue.json"
+      - "dictionary/packs/*.json"
 
 permissions:
   contents: read
@@ -23,16 +25,7 @@ jobs:
       - name: Validate schema & zero-PII rules
         run: |
           python3 - <<'PY'
-          import json, re
-
-          with open("dictionary/vocab_pack.json", encoding="utf-8") as f:
-              data = json.load(f)
-
-          assert isinstance(data, dict), "Root must be a JSON object"
-          assert isinstance(data.get("version"), str) and data["version"].strip(), "version required"
-          for key in ("known_loanwords", "colloquial_slang", "locked_compounds", "suffix_patterns"):
-              assert isinstance(data.get(key), list), f"{key} must be list"
-          assert isinstance(data.get("safe_replacements"), dict), "safe_replacements must be dict"
+          import glob, json, re
 
           pii_pat = re.compile(
               r"https?://|@|\d{4,}|(?:sk-|AIza|gh[pous]_|AKIA|ASIA|xox[bap]-|Bearer\s+|eyJ[A-Za-z0-9_-]{8,}\.)|[A-Za-z]:\\|/\S+/|\d{2,4}-\d{2,6}-\d{2,6}",
@@ -51,19 +44,33 @@ jobs:
                   return False
               return bool(re.match(r"^[가-힣A-Za-z0-9._\-\s]+$", s))
 
-          for term in data["known_loanwords"]:
-              assert valid_token(term, no_space=True), f"Invalid known_loanwords item: {term}"
-          for slang in data["colloquial_slang"]:
-              assert valid_token(slang, no_space=False), f"Invalid colloquial_slang item: {slang}"
-          for k, v in data["safe_replacements"].items():
-              assert valid_token(k, no_space=False) and valid_token(v, no_space=False) and k != v, f"Invalid pair: {k}->{v}"
-          for r in data["suffix_patterns"]:
-              assert isinstance(r, dict), f"Invalid suffix rule: {r}"
-              fs = str(r.get("fromSuffix", "")).strip()
-              ts = str(r.get("toSuffix", ""))
-              assert re.match(r"^[가-힣]{1,6}$", fs) and re.match(r"^[가-힣\s.?!]{1,10}$", ts) and fs != ts.strip(), f"Unsafe suffix rule: {r}"
-          for lk in data["locked_compounds"]:
-              assert isinstance(lk, str) and re.match(r"^[가-힣]{3,12}$", lk.strip()), f"Invalid locked_compounds item: {lk}"
+          def validate_vocab_file(path):
+              with open(path, encoding="utf-8") as f:
+                  data = json.load(f)
+              assert isinstance(data, dict), f"{path}: Root must be a JSON object"
+              assert isinstance(data.get("version"), str) and data["version"].strip(), f"{path}: version required"
+              for key in ("known_loanwords", "colloquial_slang", "locked_compounds", "suffix_patterns"):
+                  assert isinstance(data.get(key), list), f"{path}: {key} must be list"
+              assert isinstance(data.get("safe_replacements"), dict), f"{path}: safe_replacements must be dict"
+              for term in data["known_loanwords"]:
+                  assert valid_token(term, no_space=True), f"{path}: Invalid known_loanwords item: {term}"
+              for slang in data["colloquial_slang"]:
+                  assert valid_token(slang, no_space=False), f"{path}: Invalid colloquial_slang item: {slang}"
+              for k, v in data["safe_replacements"].items():
+                  assert valid_token(k, no_space=False) and valid_token(v, no_space=False) and k != v, f"{path}: Invalid pair: {k}->{v}"
+              for r in data["suffix_patterns"]:
+                  assert isinstance(r, dict), f"{path}: Invalid suffix rule: {r}"
+                  fs = str(r.get("fromSuffix", "")).strip()
+                  ts = str(r.get("toSuffix", ""))
+                  assert re.match(r"^[가-힣]{1,5}$", fs) and re.match(r"^[가-힣 ]{1,8}$", ts) and fs != ts.strip(), f"{path}: Unsafe suffix rule: {r}"
+              for lk in data["locked_compounds"]:
+                  assert isinstance(lk, str) and re.match(r"^[가-힣]{3,12}$", lk.strip()), f"{path}: Invalid locked_compounds item: {lk}"
+              return data
+
+          data = validate_vocab_file("dictionary/vocab_pack.json")
+          pack_files = sorted(glob.glob("dictionary/packs/*.json"))
+          for pf_path in pack_files:
+              validate_vocab_file(pf_path)
 
           with open("dictionary/pattern_queue.json", encoding="utf-8") as pf:
               qdata = json.load(pf)

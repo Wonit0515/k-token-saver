@@ -13,6 +13,8 @@
 *.json
 !dictionary/vocab_pack.json
 !dictionary/pattern_queue.json
+!dictionary/packs/
+!dictionary/packs/*.json
 *secret*
 *private*
 *token*

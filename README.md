@@ -9,7 +9,9 @@
 [![Sponsors](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-ea4aaa?style=flat-square&logo=githubsponsors)](https://github.com/sponsors/Wonit0515)
 [![Ko-fi](https://img.shields.io/badge/Support-Ko--fi-ff5e5b?style=flat-square&logo=ko-fi&logoColor=white)](https://ko-fi.com/wonit0515)
 
-👉 **[Chrome 웹 스토어에서 무료 설치하기 (Install on Chrome Web Store) ↗](https://chromewebstore.google.com/detail/mdckdfnpajfofkfpaindnfpjjeepganh)**
+👉 **[Chrome 웹 스토어에서 무료 설치하기 (Install on Chrome Web Store) ↗](https://chromewebstore.google.com/detail/mdckdfnpajfofkfpaindnfpjjeepganh)**  
+🌐 **[공식 웹 소개 · Before/After 체험 & 사용 설명서 (GitHub Pages) ↗](https://wonit0515.github.io/k-token-saver/)**  
+<sub>✅ **Chrome · Microsoft Edge · 네이버 웨일(Whale) · Brave · Arc** 등 모든 크로미움 기반 브라우저에서 동일하게 1-Click 설치 가능합니다.</sub>
 
 ---
 
@@ -57,6 +59,17 @@
 
 ---
 
+## 📦 직무별 교정 사전 팩 · 시너지 프롬프트 북 · 기업 보안
+
+- **직무별 특화 교정 사전 팩 (`CC0-1.0` · 팝업 `📥 JSON 불러오기` 즉시 병합)**:
+  - 💻 **개발 · 클라우드 · AI 팩**: [`dev_cloud_pack.json`](./dictionary/packs/dev_cloud_pack.json) ([Raw 내려받기](https://raw.githubusercontent.com/Wonit0515/k-token-saver/main/dictionary/packs/dev_cloud_pack.json)) — 최신 기술 외래어 20종 · 약어/오타 20종 · 통신체 패턴 6종 · 복합명사 12종
+  - 📊 **기획 · PM · 보고서 팩**: [`pm_report_pack.json`](./dictionary/packs/pm_report_pack.json) ([Raw 내려받기](https://raw.githubusercontent.com/Wonit0515/k-token-saver/main/dictionary/packs/pm_report_pack.json)) — PM 용어 18종 · 결재/보고 교정 24종 · 음슴체 승격 5종 · 복합명사 12종
+  - ✍️ **한국어 비즈니스 오타 교정 팩**: [`kr_typo_pack.json`](./dictionary/packs/kr_typo_pack.json) ([Raw 내려받기](https://raw.githubusercontent.com/Wonit0515/k-token-saver/main/dictionary/packs/kr_typo_pack.json)) — 실무 맞춤법·오타 36종 즉시 정정
+- 🎯 **[직무별 AI 맞춤형 지침(Custom Instructions) 시너지 프롬프트 북 16선 (`PROMPTS.md`)](./PROMPTS.md)** — ChatGPT · Claude · Gemini에 3줄만 등록해 답변 품질 극대화
+- 🛡️ **[기업 · 조직 보안 아키텍처 & Team PoC 안내 (`ENTERPRISE_SECURITY.md`)](./ENTERPRISE_SECURITY.md)** — Zero-Server · 최소 권한 · 전송 전 로컬 DLP · 오프라인 서명 라이선스
+
+---
+
 ## ☕ 개발 후원 (Support This Project)
 
 K-Token Saver의 핵심 `초압축` 기능과 로컬 프라이버시 도구는 영구 무료로 제공됩니다.  
@@ -74,10 +87,11 @@ K-Token Saver의 핵심 `초압축` 기능과 로컬 프라이버시 도구는 �
 <details>
 <summary>🌐 <b>English Summary</b> (Click to expand)</summary>
 
-- **Install**: **[Install Free from Chrome Web Store ↗](https://chromewebstore.google.com/detail/mdckdfnpajfofkfpaindnfpjjeepganh)**
+- **Install & Web Guide**: **[Chrome Web Store (Chrome · Edge · Whale · Brave) ↗](https://chromewebstore.google.com/detail/mdckdfnpajfofkfpaindnfpjjeepganh)** · **[Web Landing & User Manual ↗](https://wonit0515.github.io/k-token-saver/)**
 - **Overview**: **K-Token Saver** is a Chrome MV3 extension that refines, structures, and compresses Korean prompts **100% locally inside the browser (`<1ms`)** on ChatGPT (`chatgpt.com`), Claude (`claude.ai`), and Gemini (`gemini.google.com`) to prevent wasted LLM output tokens.
 - **Free (Forever Free · Unlimited `COMPACT`)**: Cleans colloquial filler, isolates exclusions (`STRICT_EXCLUSION`), preserves code blocks/error logs, and supports offline Korean sentence polishing, `Alt+Shift+K` (optimize), and `Alt+Shift+Z` (restore original).
-- **Pro / Team (Offline WebCrypto License)**: Unlocks 28 dynamic directive templates, `PRO_VERIFY` checks, 5 domain schema packs, FinOps CSV/JSON exports, and local pre-send DLP masking (API keys, JWTs, PII, custom corporate domains).
+- **Domain Vocab Packs & Synergy Prompts**: Import domain JSON packs (`dev_cloud_pack.json`, `pm_report_pack.json`, `kr_typo_pack.json`) directly in the popup with zero reinstall, or copy 16 role-specific Custom Instruction profiles in [PROMPTS.md](./PROMPTS.md).
+- **Pro / Team & Enterprise**: Unlocks 28 dynamic directive templates, `PRO_VERIFY` checks, 5 domain schema packs, FinOps CSV/JSON exports, offline ECDSA P-256 licensing, and local pre-send DLP masking. See [ENTERPRISE_SECURITY.md](./ENTERPRISE_SECURITY.md).
 - **Privacy & Minimal Permissions**: Requests only `storage` permission and the 3 supported AI host domains; **0 bytes sent to developer servers**, no external analytics, and no remote ad SDKs or remote scripts. See [PRIVACY.md](./PRIVACY.md).
 - **Community & Support**: Suggest vocabulary/patterns via GitHub Issues (`CC0-1.0` dictionaries in [`dictionary/`](./dictionary/)) or support development via [GitHub Sponsors](https://github.com/sponsors/Wonit0515) / [Ko-fi](https://ko-fi.com/wonit0515). This public repo hosts documentation, privacy policy, issue templates, and static community data only.
 

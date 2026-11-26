@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Token Saver v3.6 기능별 사용자 설명서 (웹 안내)</title>
+  <meta name="description" content="K-Token Saver의 8대 기능(무료 문장 다듬기, 초압축 변환, 원문 복구, 사전 학습, BYOK/Ollama, 로컬 DLP, 다기기 동기화, 익명 패턴 제보) 상세 사용 설명서와 단축키 안내입니다.">
+  <link rel="canonical" href="https://wonit0515.github.io/k-token-saver/guide.html">
+  <link rel="icon" type="image/png" href="./assets/icon128.png">
+  <style>
+    :root {
+      --bg: #0b1120;
+      --card: #111827;
+      --border: rgba(255, 255, 255, 0.1);
+      --text: #f1f5f9;
+      --sub: #94a3b8;
+      --accent: #38bdf8;
+    }
+    body {
+      margin: 0;
+      padding: 36px 20px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; }
+    .hero {
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.25), rgba(6, 182, 212, 0.15));
+      border: 1px solid rgba(99, 102, 241, 0.35);
+      border-radius: 14px;
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+    h1 { margin: 0 0 8px; font-size: 24px; color: #fff; }
+    h2 { margin: 0 0 12px; font-size: 18px; color: var(--accent); }
+    .sub { color: #cbd5e1; font-size: 14px; margin: 0; }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+      background: rgba(56, 189, 248, 0.16);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.35);
+    }
+    .btn-link {
+      display: inline-block;
+      margin-top: 10px;
+      margin-right: 8px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #4f46e5, #06b6d4);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border);
+      color: #e2e8f0;
+    }
+    .quick-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .quick-nav a {
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      text-decoration: none;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+    .quick-nav a:hover { border-color: #38bdf8; color: #fff; }
+    .steps-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .step-box {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.85), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .step-num {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      color: #38bdf8;
+      margin-bottom: 4px;
+    }
+    .manual-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .manual-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+    .manual-card h3 { margin: 2px 0 8px; font-size: 15px; color: #f8fafc; }
+    .manual-q { font-size: 12px; color: #93c5fd; font-weight: 700; margin: 6px 0 3px; }
+    .manual-p { margin: 0 0 6px; font-size: 12.5px; color: #cbd5e1; line-height: 1.5; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+    }
+    .kbd-chip {
+      display: inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 5px;
+      background: rgba(148, 163, 184, 0.16);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      color: #f8fafc;
+    }
+    .quality-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 12px; }
+    .quality-table th, .quality-table td {
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .quality-table th { background: rgba(30, 41, 59, 0.85); color: #e2e8f0; font-weight: 700; }
+    .quality-table td { color: #cbd5e1; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <span class="badge">K-Token Saver v3.6 · 공식 웹 사용자 설명서</span>
+      <h1>📖 기능별 사용자 설명서 (어떤 기능이고, 어떻게 동작하나요?)</h1>
+      <p class="sub">K-Token Saver는 <b>ChatGPT · Claude · Gemini</b> 입력창 우측 하단 <b>플로팅 위젯</b>과 브라우저 상단 <b>팝업 대시보드</b> 두 곳에서 100% 브라우저 내부(&lt;1ms)로 동작합니다.</p>
+      <div style="margin-top: 14px;">
+        <a class="btn-link" href="https://chromewebstore.google.com/detail/mdckdfnpajfofkfpaindnfpjjeepganh">⚡ Chrome 웹 스토어 무료 설치</a>
+        <a class="btn-link btn-outline" href="./index.html">← 공식 소개 페이지로</a>
+        <a class="btn-link btn-outline" href="https://github.com/Wonit0515/k-token-saver/blob/main/PROMPTS.md">🎯 시너지 프롬프트 북 ↗</a>
+      </div>
+      <nav class="quick-nav" aria-label="설명서 바로가기">
+        <a href="#quickstart">🚀 3단계 빠른 시작</a>
+        <a href="#guide">📚 기능별 상세 안내 (8종)</a>
+        <a href="#shortcuts">⌨️ 단축키 빠른 참조</a>
+      </nav>
+    </div>
+
+    <section id="quickstart" style="margin-bottom: 24px;">
+      <h2>🚀 3단계 빠른 시작</h2>
+      <div class="steps-strip">
+        <div class="step-box">
+          <span class="step-num">STEP 1 · 입력</span>
+          <h3 style="margin:0 0 4px;font-size:14px;color:#f8fafc;">평소처럼 한국어로 적기</h3>
+          <p class="manual-p">구어체·메신저 복사본·코드블록이 섞인 질문도 그대로 AI 채팅창이나 팝업 입력칸에 적습니다.</p>
+        </div>
+        <div class="step-box">
+          <span class="step-num">STEP 2 · 정리 (선택)</span>
+          <h3 style="margin:0 0 4px;font-size:14px;color:#f8fafc;">✨ 다듬기 <span class="kbd-chip">Alt+Shift+P</span></h3>
+          <p class="manual-p">비교 카드로 오타·구어체·띄어쓰기를 먼저 정리하고, <code>표준/간결/격식</code> 톤을 고른 뒤 <b>✅ 적용</b>합니다.</p>
+        </div>
+        <div class="step-box">
+          <span class="step-num">STEP 3 · 구조화 전송</span>
+          <h3 style="margin:0 0 4px;font-size:14px;color:#f8fafc;">⚡ 변환 <span class="kbd-chip">Alt+Shift+K</span></h3>
+          <p class="manual-p">군더더기를 빼고 핵심 과업·배제 조건을 분리해 변환합니다. 실수했다면 <span class="kbd-chip">Alt+Shift+Z</span>로 즉시 원문 복구됩니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="guide" style="margin-bottom: 26px;">
+      <h2>📚 기능별 상세 사용자 설명서</h2>
+      <div class="manual-grid">
+        <div class="manual-card">
+          <span class="badge">기능 1 · 무료 무제한</span>
+          <h3>✨ 문장 다듬기 비교 카드 (<span class="kbd-chip">Alt+Shift+P</span>)</h3>
+          <div class="manual-q">Q. 어떤 기능인가요?</div>
+          <p class="manual-p">거친 한국어·메신저 타임스탬프(<code>[오후 2:14] 김철수:</code>)·자주 틀리는 띄어쓰기·구어체를 100% 브라우저 오프라인 사전으로 교정하고, 적용 전에 원문과 비교·편집할 수 있는 미리보기 카드입니다.</p>
+          <div class="manual-q">Q. 어떻게 동작하고 사용하나요?</div>
+          <p class="manual-p">① 입력창을 바로 덮어쓰지 않고 우측 상단 비교 카드만 엽니다. ② <b>✨ 표준 / ⚡ 간결 / 💼 격식</b> 버튼을 누르면 네트워크 호출 없이 즉시 문체를 바꿉니다. ③ 의심 단어는 <code>🙈 오타 아님</code>으로 보호 등록하거나, 카드를 직접 수정해 <b>✅ 적용</b>(<span class="kbd-chip">Ctrl+Enter</span>)하면 다음부터 자동 학습됩니다. ④ AI 문맥 재작성이 필요하면 <b>🤖 AI 교정</b>으로 현재 채팅 AI에게 안전하게 교정을 맡길 수 있습니다.</p>
+        </div>
+
+        <div class="manual-card">
+          <span class="badge">기능 2 · 무료 무제한</span>
+          <h3>⚡ 프롬프트 변환 (<span class="kbd-chip">Alt+Shift+K</span>) &amp; ↩ 복구 (<span class="kbd-chip">Alt+Shift+Z</span>)</h3>
+          <div class="manual-q">Q. 어떤 기능인가요?</div>
+          <p class="manual-p">길고 두서없는 한국어 질문을 AI가 딴소리 없이 정확하게 답하도록 구조화 규격(<code>[CORE_TASK]</code>, <code>STRICT_EXCLUSION</code>, <code>[OUTPUT]</code>)으로 1ms 이내에 압축·정렬합니다.</p>
+          <div class="manual-q">Q. 어떻게 동작하고 사용하나요?</div>
+          <p class="manual-p">① <code>단, ~제외</code> / <code>~빼고</code> 표현은 자동으로 <code>STRICT_EXCLUSION</code>에 격리되고, <code>```코드블록```</code>은 100% 원형 보존됩니다. ② 변환 직후 위젯의 <code>✨ 다듬기</code> 버튼은 <b>↩ 초기화</b>로 바뀌어 1클릭 원문 복구가 가능하며, <span class="kbd-chip">Alt+Shift+Z</span>는 단계별로 최대 5단계까지 되돌립니다. ③ AI에 전송(<span class="kbd-chip">Enter</span>)해 입력창이 비워지면 자동으로 다시 <code>✨ 다듬기</code> 상태로 풀립니다.</p>
+        </div>
+
+        <div class="manual-card">
+          <span class="badge">기능 3 · Free vs Pro</span>
+          <h3>🗜️ 초압축 vs 👑 팀장지휘 · 💻 코드 · 📐 수식</h3>
+          <div class="manual-q">Q. 각 모드는 무엇이 다른가요?</div>
+          <p class="manual-p"><b>🗜️ 초압축(Free 무제한)</b>은 태그 오버헤드를 최소화해 깔끔하게 과업·배제 조건만 압축합니다. <b>👑 팀장지휘 / 💻 코드 / 📐 수식(Pro)</b>은 질문 성격(장애 분석, 구현, 아키텍처, 비교, 수식·증명 등) 28종을 자동 판별해 전문 지휘 구조와 도메인별 심층 검증선(<code>PRO_VERIFY</code>), 직무 스키마 팩 5종(CISO·FinOps·Deal Desk·ITSM·DPA)을 자동 결합합니다.</p>
+          <div class="manual-q">Q. 어떻게 사용하나요?</div>
+          <p class="manual-p">위젯이나 팝업 상단 칩을 눌러 전환합니다. 무료 사용자는 <code>🗜️ 초압축</code>을 제한 없이 쓰며, 팝업 <b>오프라인 독립 변환기</b>에서도 다른 사이트(메일·메모장 등)에 붙여넣을 변환문을 미리 만들어 <code>📋 복사</code>할 수 있습니다.</p>
+        </div>
+
+        <div class="manual-card">
+          <span class="badge">기능 4 · 개인 사전</span>
+          <h3>📚 내 용어·사전 학습 &amp; 고유명사 보호</h3>
+          <div class="manual-q">Q. 자동 교정 학습과 고유명사 보호는 어떻게 다른가요?</div>
+          <p class="manual-p">팝업 <b>📚 내 용어·사전 학습 &amp; GitHub 제안</b>에서 두 가지를 명확히 나눠 관리합니다.<br>• <b>✏️ 자동 교정 학습(<code>오타→바른말</code>)</b>: 등록한 단어가 나오면 다듬기 시 지정한 바른말로 <b>자동 치환</b>합니다(예: <code>빠레 → 빨리</code>).<br>• <b>🛡️ 고유명사 보호(<code>단일 용어</code>)</b>: 사내 프로젝트명·신조어를 오타로 의심(<code>[확인 필요]</code>)하거나 건드리지 않도록 <b>교정에서 제외</b>합니다.</p>
+          <div class="manual-q">Q. 백업 및 도메인 사전 팩 추가는 어떻게 하나요?</div>
+          <p class="manual-p"><b>💾 백업 저장</b> / <b>📥 JSON 불러오기</b>로 <a href="./index.html#packs">도메인별 사전 팩 3종</a>을 재설치 없이 즉시 병합하거나 PC 간 옮길 수 있습니다.</p>
+        </div>
+
+        <div class="manual-card">
+          <span class="badge">기능 5 · 선택 연결 (기본 OFF)</span>
+          <h3>🧠 AI 정밀 다듬기 (BYOK · 로컬 Ollama)</h3>
+          <div class="manual-q">Q. 기본 동작에서도 외부 서버로 전송되나요?</div>
+          <p class="manual-p"><b>아니요.</b> 기본값은 완전히 꺼져(<b>OFF</b>) 있어 외부 전송이 0건입니다. 사용자가 팝업에서 체크박스를 직접 켜고 본인의 API 키(Google Gemini 또는 HTTPS OpenAI 호환 API)나 내 PC의 <b>로컬 Ollama(<code>127.0.0.1</code>)</b>를 입력한 경우에만 Service Worker에서 안전하게 호출합니다.</p>
+          <div class="manual-q">Q. 어떻게 안전하게 동작하나요?</div>
+          <p class="manual-p"><b>🛡️ 전송 전 보호</b>가 켜져 있으면 API 키·이메일·URL·코드블록을 임시 자리표시자로 가린 뒤 AI에게 다듬기만 요청하고, 응답을 받은 뒤 내 PC에서 원본을 다시 복원합니다. Ollama 사용 시에는 터미널 환경변수 <code>OLLAMA_ORIGINS=*</code> 설정 후 실행해야 합니다.</p>
+        </div>
+
+        <div class="manual-card">
+          <span class="badge">기능 6 · Team DLP</span>
+          <h3>🛡️ 전송 전 로컬 DLP 민감정보 마스킹</h3>
+          <div class="manual-q">Q. 어떤 기능인가요?</div>
+          <p class="manual-p">실수로 AWS 키, OpenAI/Slack API 키, JWT, 이메일, 휴대폰·주민번호, 사내 비공개 IP·도메인을 AI에 붙여넣었을 때 브라우저 밖으로 나가기 전에 <code>[REDACTED_API_KEY_1]</code>, <code>[REDACTED_CORP_DOMAIN_1]</code> 형태로 가려주는 기능입니다.</p>
+          <div class="manual-q">Q. 어떻게 사용하고 복구하나요?</div>
+          <p class="manual-p">Team 라이선스 인증 후 팝업 하단에서 <b>전송 전 로컬 DLP</b>를 켜고, 가릴 사내 도메인(예: <code>corp.internal</code>)을 쉼표로 적어두면 변환과 동시에 자동 치환됩니다. <span class="kbd-chip">Alt+Shift+Z</span>를 누르면 입력했던 원문 그대로 복구되며, 팝업 이력에도 실제 비밀키는 남기지 않습니다.</p>
+        </div>
+
+        <div class="manual-card">
+          <span class="badge">기능 7 · Pro / Team</span>
+          <h3>☁️ 다기기 설정 동기화 &amp; 📊 FinOps 리포트</h3>
+          <div class="manual-q">Q. 다기기 설정 동기화는 무엇을 어떻게 동기화하나요?</div>
+          <p class="manual-p">팝업 <b>내 로컬 상시 배제 규칙</b>(예: <code>서론 제외, 추측 금지</code>)을 여러 PC에서 매번 다시 적지 않도록, <b>☁️ 다기기 설정 동기화</b>를 켜면 동일한 Google 계정으로 로그인된 Chrome 브라우저끼리 <code>chrome.storage.sync</code>로 배제 규칙을 자동 병합·동기화합니다(프롬프트 원문은 동기화하지 않습니다).</p>
+          <div class="manual-q">Q. FinOps 리포트는 어디에 쓰나요?</div>
+          <p class="manual-p">누적 절감 토큰·환산 절감액(KRW)과 최근 변환 통계(최대 80건 로컬 보관)를 <b>📊 FinOps CSV</b>(Excel 호환 UTF-8 BOM) 또는 <b>🧾 JSON 리포트</b>로 내려받을 수 있습니다.</p>
+        </div>
+
+        <div class="manual-card">
+          <span class="badge">기능 8 · 위젯 · 제보</span>
+          <h3>🧩 플로팅 위젯 조작 &amp; 🧪 익명 패턴 제보</h3>
+          <div class="manual-q">Q. 위젯이 입력창을 가리거나 이동하고 싶을 땐 어떻게 하나요?</div>
+          <p class="manual-p">위젯 왼쪽 점 6개 핸들을 끌어 원하는 위치로 옮기면 새로고침 후에도 위치가 기억됩니다. <code>—</code> 버튼으로 미니 접기를 켤 수 있고, 위젯이 AI 입력창과 겹치면 하단 제휴 바가 자동으로 숨겨집니다. 무료 버전 하단 배너의 <code>✕</code>를 누르면 <b>12시간</b> 동안 숨겨집니다(Pro/Team은 영구 비노출).</p>
+          <div class="manual-q">Q. 🧪 패턴 제보는 안전한가요?</div>
+          <p class="manual-p">문장 다듬기 카드에서 <b>🧪 패턴 제보</b>를 누르면 이메일·계좌·전화번호·이름·비밀키·큰 숫자를 <code>{EMAIL}</code>, <code>{PERSON}</code>, <code>{SECRET}</code> 등으로 비식별 치환한 <b>미리보기</b>를 먼저 보여줍니다. 내용을 확인한 뒤 직접 <b>GitHub 패턴 제보 열기</b>를 눌렀을 때만 등록 양식이 열립니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="shortcuts" style="margin-bottom: 24px;">
+      <div class="card">
+        <span class="badge">단축키 &amp; 빠른 참조표</span>
+        <table class="quality-table">
+          <thead>
+            <tr>
+              <th style="width: 24%;">단축키 / 조작</th>
+              <th style="width: 34%;">적용 위치</th>
+              <th style="width: 42%;">동작 설명</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="kbd-chip">Alt+Shift+P</span> / <b>✨ 다듬기</b></td>
+              <td>ChatGPT · Claude · Gemini</td>
+              <td>입력창 원문 유지 + 문장 다듬기 비교 카드 열기</td>
+            </tr>
+            <tr>
+              <td><span class="kbd-chip">Alt+Shift+K</span> / <b>⚡ 변환</b></td>
+              <td>ChatGPT · Claude · Gemini</td>
+              <td>현재 선택 모드(초압축·팀장·코드·수식)로 즉시 구조화 변환</td>
+            </tr>
+            <tr>
+              <td><span class="kbd-chip">Alt+Shift+Z</span> / <b>↩ 초기화</b></td>
+              <td>ChatGPT · Claude · Gemini</td>
+              <td>변환·다듬기 적용 전 원문으로 복구 (단축키는 최대 5단계 Undo)</td>
+            </tr>
+            <tr>
+              <td><span class="kbd-chip">Ctrl+Enter</span> / <span class="kbd-chip">Esc</span></td>
+              <td>문장 다듬기 비교 카드</td>
+              <td>수정된 다듬기 문장을 입력창에 즉시 적용 / 비교 카드 닫기</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div style="text-align: center; padding-top: 6px;">
+      <a class="btn-link" href="https://chromewebstore.google.com/detail/mdckdfnpajfofkfpaindnfpjjeepganh">⚡ 무료 설치하기</a>
+      <a class="btn-link btn-outline" href="./index.html#packs">📦 도메인 사전 팩 보기</a>
+      <a class="btn-link btn-outline" href="https://github.com/Wonit0515/k-token-saver/blob/main/PRIVACY.md">🛡️ 개인정보처리방침</a>
+    </div>
+  </div>
+</body>
+</html>
