@@ -70,13 +70,14 @@
 
 ---
 
-## ☕ 개발 후원 (Support This Project)
+## ☕ 개발 후원 & 서포터 리워드 (Support This Project)
 
 K-Token Saver의 핵심 `초압축` 기능과 로컬 프라이버시 도구는 영구 무료로 제공됩니다.  
 도구가 실무와 토큰 절약에 도움이 되셨다면 아래 채널로 개발을 응원해 주세요!
 
 - 💖 **GitHub Sponsors**: https://github.com/sponsors/Wonit0515
 - ☕ **Ko-fi**: https://ko-fi.com/wonit0515
+- 🎁 **감사의 PRO 기간 라이선스 자동 증정**: `$5` 이상 후원 시 오프라인 **PRO** 라이선스 키(`$5+` `32일` · `$15+` `95일` · `$50+` `365일`)가 이메일로 즉시 발송됩니다. *(GitHub 프로필 이메일이 비공개인 분은 후원 직후 **[⚡ GitHub 후원자 1-Click 키 수령창](https://ktoken-license-issuer.wonit0515.workers.dev/claim/github)** 에서 바로 발급받으실 수 있습니다.)*
 
 ---
 
